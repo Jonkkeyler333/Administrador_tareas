@@ -1,5 +1,13 @@
 import ttkbootstrap as tb
-import os
+import tkinter as tk
+
+
+def nuevo_Evento():
+    if entrada.winfo_ismapped():  # Verifica si el botón está mapeado (visible)
+        entrada.pack_forget()    # Oculta el botón
+    else:
+        entrada.pack()
+        
 
 ventana=tb.Window('JKtaks',themename='superhero')
 
@@ -15,9 +23,20 @@ buttonbar = tb.Frame(style='primary.TFrame')
 buttonbar.pack(fill=tb.X, pady=1, side=tb.TOP)
 
 
-b1=tb.Button(master=buttonbar,image='img1.png',text='Nueva',bootstyle='primary')
-b1.pack()
+##boton de añadir evento
+ruta_imagen = 'images/img1.png'
+imagen = tk.PhotoImage(file=ruta_imagen)
+b1=tb.Button(master=buttonbar,image=imagen,compound=tb.LEFT,text='Nuevo',bootstyle='primary',command=nuevo_Evento)
+b1.pack(side=tb.LEFT, ipadx=5, ipady=5, padx=(1, 0), pady=1)
 
+entrada_style = tb.Style()
+entrada_style.configure('entrada.TFrame', background='#05F4E9')
+
+entrada = tb.Frame(style='entrada.TFrame')
+l1=tb.Label(text='Ingrese el nombre de su evento',master=entrada,bootstyle='info,inverse')
+l1.pack(side=tb.LEFT,ipadx=5, ipady=5,padx=(1,1))
+entrada1=tb.Entry(master=entrada,bootstyle="danger")
+entrada1.pack(side=tb.LEFT, ipadx=5, ipady=5, padx=(1,1), pady=3)
 
 ventana.mainloop()
 

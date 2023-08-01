@@ -6,9 +6,13 @@ from evento import Evento
 class Aplicacion:
     def __init__(self):
         self.ventana = tb.Window('JKtaks', themename='superhero')
-        self.ventana.geometry("1600x600")
+        self.ventana.geometry("1600x650")
         self.imagen = tk.PhotoImage(file='images/img1.png')
         self.imagen2 = tk.PhotoImage(file='images/img2.png')
+        frame_style = tb.Style()
+        frame_style.configure('f1.TFrame', background='#05F4E9')
+        self.frame_Evento=tb.Frame(style='f1.TFrame',height=500,width=1000)
+        self.frame_Evento.place(x=500,y=140)
         self.eventos=[]
         self.crear_menu()
         self.crear_contenido()
@@ -33,6 +37,16 @@ class Aplicacion:
             name=self.entrada1.get() #obtiene el nombre del evento
             date=self.fecha.entry.get()  # Obtiene la fecha seleccionada
             hour=self.hora.get()  # Obtiene la hora seleccionada
+            evento=Evento(name,date,hour)
+            self.eventos.append(evento)
+            self._crear_evento(evento)
+            messagebox.showinfo(message=evento, title="Completado")
+    
+    
+            
+    def _crear_evento(self,e:Evento)->None:
+        ficha=tb.Label(text=e.nombre,master=self.frame_Evento)
+        ficha.pack(side=tb.TOP)
 
     def crear_contenido(self):
         ##Contenedor de botones
@@ -52,8 +66,10 @@ class Aplicacion:
         self.entrada1.pack(side=tb.LEFT, ipadx=5, ipady=5, padx=(1,6), pady=3)
         self.l2 = tb.Label(text='Ingrese la fecha de su evento ', master=self.entrada, bootstyle='info,inverse')
         self.l2.pack(side=tb.LEFT, ipadx=5, ipady=5, pady=5, padx=(0,6))
-        self.fecha = tb.DateEntry(master=self.entrada, bootstyle="info")
-        self.fecha.pack(padx=(0,20), side=tb.LEFT)
+        self.fecha = tb.DateEntry(master=self.entrada, bootstyle='info')
+        self.fecha.pack(padx=(0,20), side=tb.LEFT,)
+        self.l3=tb.Label(text='Seleccione la hora',master=self.entrada,bootstyle='info,inverse') 
+        self.l3.pack(side=tb.LEFT,padx=(0,6),pady=5,ipadx=5, ipady=5)
         self.hora = tb.Spinbox(master=self.entrada, bootstyle='info', from_=0, to=24)
         self.hora.pack(side=tb.LEFT)
 

@@ -2,6 +2,7 @@ import ttkbootstrap as tb
 import tkinter as tk
 from tkinter import messagebox
 from evento import Evento
+import csv
 
 class Aplicacion:
     def __init__(self):
@@ -16,6 +17,7 @@ class Aplicacion:
         self.eventos=[]
         self.crear_menu()
         self.crear_contenido()
+        self.filename='data.csv'
         
     def crear_menu(self):
         barra_menus = tb.Menu()
@@ -41,9 +43,8 @@ class Aplicacion:
             self.eventos.append(evento)
             self._crear_evento(evento)
             messagebox.showinfo(message=evento, title="Completado")
-    
-    
-            
+            self._save_Data()
+     
     def _crear_evento(self,e:Evento)->None:
         ficha=tb.Label(text=e.nombre,master=self.frame_Evento)
         ficha.pack(side=tb.TOP)
@@ -73,8 +74,19 @@ class Aplicacion:
         self.hora = tb.Spinbox(master=self.entrada, bootstyle='info', from_=0, to=24)
         self.hora.pack(side=tb.LEFT)
 
-        self.b2 = tb.Button(master=self.entrada, image=self.imagen2, compound=tb.LEFT, text='Confirma', bootstyle='info', command=self.confirmar_Evento)
-        self.b2.pack(side=tb.LEFT, padx=(6,10))
+        self.b3 = tb.Button(master=self.entrada, image=self.imagen2, compound=tb.LEFT, text='Confirma', bootstyle='info', command=self.confirmar_Evento)
+        self.b3.pack(side=tb.LEFT, padx=(6,10))
+    
+    def _get_Data(self)->list:
+        data=[]
+        for elem in self.eventos:
+            data.append([elem.nombre,elem.fecha,elem.hora])
+        return data
+        
+    def _save_Data(self)->None:
+        with open(self.filename, mode='a', newline='') as archivo_csv:
+            escritor = csv.writer(archivo_csv)
+            escritor.writerows(self._get_Data())
 
 if __name__ == "__main__":
     app = Aplicacion()

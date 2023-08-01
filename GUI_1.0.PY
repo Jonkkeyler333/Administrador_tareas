@@ -25,7 +25,7 @@ buttonbar.pack(fill=tb.X, pady=1, side=tb.TOP)
 
 ##boton de añadir evento
 ruta_imagen = 'images/img1.png'
-imagen = tk.PhotoImage(file=ruta_imagen)
+imagen = tk.PhotoImage(file=ruta_imagen) ##imagen boton
 b1=tb.Button(master=buttonbar,image=imagen,compound=tb.LEFT,text='Nuevo',bootstyle='primary',command=nuevo_Evento)
 b1.pack(side=tb.LEFT, ipadx=5, ipady=5, padx=(1, 0), pady=1)
 
@@ -41,7 +41,11 @@ l2=tb.Label(text='Ingrese la fecha de su evento ',master=entrada,bootstyle='info
 l2.pack(side=tb.LEFT,ipadx=5,ipady=5,pady=5,padx=(0,6))
 fecha=tb.DateEntry(master=entrada,bootstyle="info")
 fecha.pack(padx=(0,20),side=tb.LEFT)
-b2=tb.Button(master=entrada,text='Confirma',bootstyle='info')
+
+##ruta imagen 2
+ruta_imagen2='images/img2.png'
+imagen2=tk.PhotoImage(file=ruta_imagen2)
+b2=tb.Button(master=entrada,image=imagen2,compound=tb.LEFT,text='Confirma',bootstyle='info')
 b2.pack(side=tb.LEFT,padx=(6,10))
 
 ventana.mainloop()

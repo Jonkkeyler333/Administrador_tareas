@@ -1,13 +1,19 @@
 import ttkbootstrap as tb
 import tkinter as tk
+from tkinter import messagebox
 
-
-def nuevo_Evento():
+def nuevo_Evento()->None:
     if entrada.winfo_ismapped():  # Verifica si el botón está mapeado (visible)
         entrada.pack_forget()    # Oculta el botón
     else:
         entrada.pack()
-        
+
+def confirmar_Evento()->None:
+    if entrada1.get()=='' or entrada1.get()==None:
+        messagebox.showwarning(message="El título de su evento se encuentra vacío, intentelo mas tarde", title="Error")
+    else:
+        print(entrada1.get())
+        print(fecha.entry.get())
 
 ventana=tb.Window('JKtaks',themename='superhero')
 
@@ -35,7 +41,7 @@ entrada_style.configure('entrada.TFrame', background='#05F4E9')
 entrada = tb.Frame(style='entrada.TFrame')
 l1=tb.Label(text='Ingrese el nombre de su evento',master=entrada,bootstyle='info,inverse')
 l1.pack(side=tb.LEFT,ipadx=5, ipady=5,padx=(1,2))
-entrada1=tb.Entry(master=entrada,bootstyle="danger")
+entrada1=tb.Entry(master=entrada,bootstyle="info")
 entrada1.pack(side=tb.LEFT, ipadx=5, ipady=5, padx=(1,6), pady=3)
 l2=tb.Label(text='Ingrese la fecha de su evento ',master=entrada,bootstyle='info,inverse')
 l2.pack(side=tb.LEFT,ipadx=5,ipady=5,pady=5,padx=(0,6))
@@ -45,8 +51,11 @@ fecha.pack(padx=(0,20),side=tb.LEFT)
 ##ruta imagen 2
 ruta_imagen2='images/img2.png'
 imagen2=tk.PhotoImage(file=ruta_imagen2)
-b2=tb.Button(master=entrada,image=imagen2,compound=tb.LEFT,text='Confirma',bootstyle='info')
+b2=tb.Button(master=entrada,image=imagen2,compound=tb.LEFT,text='Confirma',bootstyle='info',command=confirmar_Evento)
 b2.pack(side=tb.LEFT,padx=(6,10))
+
+
+
 
 ventana.mainloop()
 

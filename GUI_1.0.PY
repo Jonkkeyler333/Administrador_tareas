@@ -34,9 +34,15 @@ entrada_style.configure('entrada.TFrame', background='#05F4E9')
 
 entrada = tb.Frame(style='entrada.TFrame')
 l1=tb.Label(text='Ingrese el nombre de su evento',master=entrada,bootstyle='info,inverse')
-l1.pack(side=tb.LEFT,ipadx=5, ipady=5,padx=(1,1))
+l1.pack(side=tb.LEFT,ipadx=5, ipady=5,padx=(1,2))
 entrada1=tb.Entry(master=entrada,bootstyle="danger")
-entrada1.pack(side=tb.LEFT, ipadx=5, ipady=5, padx=(1,1), pady=3)
+entrada1.pack(side=tb.LEFT, ipadx=5, ipady=5, padx=(1,6), pady=3)
+l2=tb.Label(text='Ingrese la fecha de su evento ',master=entrada,bootstyle='info,inverse')
+l2.pack(side=tb.LEFT,ipadx=5,ipady=5,pady=5,padx=(0,6))
+fecha=tb.DateEntry(master=entrada,bootstyle="info")
+fecha.pack(padx=(0,20),side=tb.LEFT)
+b2=tb.Button(master=entrada,text='Confirma',bootstyle='info')
+b2.pack(side=tb.LEFT,padx=(6,10))
 
 ventana.mainloop()
 

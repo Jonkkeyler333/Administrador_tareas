@@ -43,6 +43,7 @@ class Aplicacion:
                             for elem in self.eventos:
                                 if elem.nombre == fila[0]:
                                     accept=False
+                                    
                                 else:
                                     accept=True
                         if accept: 
@@ -81,8 +82,10 @@ class Aplicacion:
         :param e: El evento a ser representado
         :type e: Evento
         """
+        estilo_boton = tb.Style()
+        estilo_boton.configure('b1.TButton',font=('Arial',10))
         pos=self._generar_pos()
-        ficha=tb.Button(text=e.nombre,master=self.contenedor,image=self.imagen3,compound=tb.LEFT)
+        ficha=tb.Button(text=e.nombre,master=self.contenedor,style='b1.TButton',image=self.imagen3,compound=tb.LEFT)
         ficha.grid(row=pos[0],column=pos[1],padx=10,pady=10)
         
     def _generar_pos(self)->list:
@@ -93,7 +96,7 @@ class Aplicacion:
         """
         posicion=[]
         for k in range(0,5):
-            for j in range(0,9):
+            for j in range(0,5):
                 posicion=[k,j]
                 if posicion not in self.posiciones:
                     self.posiciones.append(posicion)

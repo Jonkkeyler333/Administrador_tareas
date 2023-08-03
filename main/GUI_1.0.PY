@@ -11,6 +11,7 @@ class Aplicacion:
         self.imagen = tk.PhotoImage(file='images/img1.png')
         self.imagen2 = tk.PhotoImage(file='images/img2.png')
         self.imagen3=tk.PhotoImage(file='images/img3.png')
+        self.imagen4=tk.PhotoImage(file='images/img4.png')
         self.eventos=[]
         self.posiciones=[]
         self.foldername = 'data_files'
@@ -111,13 +112,16 @@ class Aplicacion:
         
         self.b1 = tb.Button(master=self.buttonbar, image=self.imagen, compound=tb.LEFT, text='Nuevo', bootstyle='primary', command=self.nuevo_Evento)
         self.b1.pack(side=tb.LEFT, ipadx=5, ipady=5, padx=(1, 0), pady=1)
+        
+        self.b2=tb.Button(master=self.buttonbar,text='Buscar',bootstyle='primary',compound=tb.LEFT,image=self.imagen4)
+        self.b2.pack(side=tb.LEFT,ipadx=5,ipady=5,padx=(1, 0),pady=1)
 
         entrada_style = tb.Style()
         entrada_style.configure('entrada.TFrame', background='#05F4E9')
         self.entrada = tb.Frame(style='entrada.TFrame')##Contenedor de entrada
         
         ##Contenedor de eventos
-        self.contenedor = tb.Labelframe(text='Eventos', padding=10)
+        self.contenedor = tb.Labelframe(text='Eventos', padding=10,)
         self.contenedor.pack(side=tb.TOP, fill=tb.BOTH, expand=tb.YES,padx=(20,20),pady=(0,20)) 
         
         self.l1 = tb.Label(text='Ingrese el nombre de su evento', master=self.entrada, bootstyle='info,inverse')

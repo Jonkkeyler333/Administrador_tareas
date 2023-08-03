@@ -10,6 +10,7 @@ class Aplicacion:
         self.ventana.geometry("1600x700")
         self.imagen = tk.PhotoImage(file='images/img1.png')
         self.imagen2 = tk.PhotoImage(file='images/img2.png')
+        self.imagen3=tk.PhotoImage(file='images/img3.png')
         self.eventos=[]
         self.posiciones=[]
         self.foldername = 'data_files'
@@ -26,12 +27,14 @@ class Aplicacion:
         barra_menus.add_cascade(menu=menu_archivo, label="Archivo")
 
     def _open(self)->None:
+        self.eventos.clear()
         with open(self.filename, mode='r', newline='') as archivo_csv:
-            lector_csv = csv.reader(archivo_csv)
+            lector_csv=csv.reader(archivo_csv) 
             for fila in lector_csv:
-                e=Evento(fila[0],fila[1],fila[2])
-                self.eventos.append(e)
-                self._crear_evento(e)
+                if len(fila)>=3:
+                    e=Evento(fila[0],fila[1],fila[2])
+                    self.eventos.append(e)
+                    self._crear_evento(e)
 
     def nuevo_Evento(self):
         """Activa el panel para la configuración del evento
@@ -65,7 +68,7 @@ class Aplicacion:
         :type e: Evento
         """
         pos=self._generar_pos()
-        ficha=tb.Button(text=e.nombre,master=self.contenedor)
+        ficha=tb.Button(text=e.nombre,master=self.contenedor,image=self.imagen3,compound=tb.LEFT)
         ficha.grid(row=pos[0],column=pos[1],padx=10,pady=10)
         
     def _generar_pos(self)->list:

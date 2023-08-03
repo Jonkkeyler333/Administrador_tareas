@@ -53,8 +53,10 @@ class Aplicacion:
         :param e: El evento a ser representado
         :type e: Evento
         """
-        ficha=tb.Label(text=e.nombre,master=self.contenedor)
+        ficha=tb.Button(text=e.nombre,master=self.contenedor)
         ficha.pack(side=tb.TOP)
+        # ficha=tb.Label(text=e.nombre,master=self.contenedor)
+        # ficha.pack(side=tb.TOP)
 
     def crear_contenido(self):
         """Crea todo el contenido de la interfaz

@@ -28,13 +28,17 @@ class Aplicacion:
 
     def _open(self)->None:
         self.eventos.clear()
-        with open(self.filename, mode='r', newline='') as archivo_csv:
-            lector_csv=csv.reader(archivo_csv) 
-            for fila in lector_csv:
-                if len(fila)>=3:
-                    e=Evento(fila[0],fila[1],fila[2])
-                    self.eventos.append(e)
-                    self._crear_evento(e)
+        lista_archivos = os.listdir(self.foldername)  ##Se le pasa como argumento el directorio y devuelve el nombre de los archivos dentro de el
+        if not lista_archivos:
+            print(self.filename)
+        else:
+            with open(self.filename, mode='r', newline='') as archivo_csv:
+                lector_csv=csv.reader(archivo_csv) 
+                for fila in lector_csv:
+                    if len(fila)>=3:
+                        e=Evento(fila[0],fila[1],fila[2])
+                        self.eventos.append(e)
+                        self._crear_evento(e)
 
     def nuevo_Evento(self):
         """Activa el panel para la configuración del evento

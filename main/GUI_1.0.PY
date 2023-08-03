@@ -5,24 +5,28 @@ from evento import Evento
 import csv , os
 
 class Aplicacion:
-    def __init__(self):
+    def __init__(self)->None:
         self.ventana = tb.Window('JKtaks', themename='superhero')
         self.ventana.geometry("1600x700")
         self.imagen = tk.PhotoImage(file='images/img1.png')
         self.imagen2 = tk.PhotoImage(file='images/img2.png')
         self.eventos=[]
+        self.posiciones=[]
         self.crear_menu()
         self.crear_contenido()
         self.foldername = 'data_files'
         self.filename = os.path.join(self.foldername, 'data.csv')
         self.ventana.iconbitmap('images/icono.ico')
         
-    def crear_menu(self):
+    def crear_menu(self)->None:
         barra_menus = tb.Menu()
         self.ventana.config(menu=barra_menus)
         menu_archivo = tb.Menu(barra_menus, tearoff=False)
         menu_archivo.add_command(label='Nuevo', accelerator="Ctrl+N")
         barra_menus.add_cascade(menu=menu_archivo, label="Archivo")
+
+    def _open(self)->None:
+        pass
 
     def nuevo_Evento(self):
         """Activa el panel para la configuración del evento
@@ -45,6 +49,8 @@ class Aplicacion:
             self.eventos.append(evento)
             self._crear_evento(evento)
             messagebox.showinfo(message=evento, title="Completado")
+            self.entrada1.delete(0, tk.END)
+            self.hora.delete(0, tk.END)
             self._save_Data()
      
     def _crear_evento(self,e:Evento)->None:
@@ -53,10 +59,23 @@ class Aplicacion:
         :param e: El evento a ser representado
         :type e: Evento
         """
+        pos=self._generar_pos()
         ficha=tb.Button(text=e.nombre,master=self.contenedor)
-        ficha.pack(side=tb.TOP)
-        # ficha=tb.Label(text=e.nombre,master=self.contenedor)
-        # ficha.pack(side=tb.TOP)
+        ficha.grid(row=pos[0],column=pos[1],padx=10,pady=10)
+        
+    def _generar_pos(self)->list:
+        """Genera la posición para ubicar al boton
+
+        :return: _description_
+        :rtype: list
+        """
+        posicion=[]
+        for k in range(0,5):
+            for j in range(0,9):
+                posicion=[k,j]
+                if posicion not in self.posiciones:
+                    self.posiciones.append(posicion)
+                    return posicion
 
     def crear_contenido(self):
         """Crea todo el contenido de la interfaz
@@ -78,7 +97,7 @@ class Aplicacion:
         
         self.l1 = tb.Label(text='Ingrese el nombre de su evento', master=self.entrada, bootstyle='info,inverse')
         self.l1.pack(side=tb.LEFT, ipadx=5, ipady=5, padx=(1,2))
-        self.entrada1 = tb.Entry(master=self.entrada, bootstyle="info")
+        self.entrada1 = tb.Entry(master=self.entrada, bootstyle="info")  ##Nombre del evento
         self.entrada1.pack(side=tb.LEFT, ipadx=5, ipady=5, padx=(1,6), pady=3)
         self.l2 = tb.Label(text='Ingrese la fecha de su evento ', master=self.entrada, bootstyle='info,inverse')
         self.l2.pack(side=tb.LEFT, ipadx=5, ipady=5, pady=5, padx=(0,6))

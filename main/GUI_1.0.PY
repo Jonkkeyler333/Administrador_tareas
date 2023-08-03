@@ -12,11 +12,11 @@ class Aplicacion:
         self.imagen2 = tk.PhotoImage(file='images/img2.png')
         self.eventos=[]
         self.posiciones=[]
-        self.crear_menu()
-        self.crear_contenido()
         self.foldername = 'data_files'
         self.filename = os.path.join(self.foldername, 'data.csv')
         self.ventana.iconbitmap('images/icono.ico')
+        self.crear_contenido()
+        self.crear_menu()
         
     def crear_menu(self)->None:
         barra_menus = tb.Menu()
@@ -26,7 +26,12 @@ class Aplicacion:
         barra_menus.add_cascade(menu=menu_archivo, label="Archivo")
 
     def _open(self)->None:
-        pass
+        with open(self.filename, mode='r', newline='') as archivo_csv:
+            lector_csv = csv.reader(archivo_csv)
+            for fila in lector_csv:
+                e=Evento(fila[0],fila[1],fila[2])
+                self.eventos.append(e)
+                self._crear_evento(e)
 
     def nuevo_Evento(self):
         """Activa el panel para la configuración del evento
@@ -110,6 +115,8 @@ class Aplicacion:
 
         self.b3 = tb.Button(master=self.entrada, image=self.imagen2, compound=tb.LEFT, text='Confirma', bootstyle='info', command=self.confirmar_Evento)
         self.b3.pack(side=tb.LEFT, padx=(6,10))
+        
+        self._open()
     
     def _get_Data(self)->list:
         data=[]

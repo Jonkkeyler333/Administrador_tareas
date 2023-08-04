@@ -102,6 +102,42 @@ class Aplicacion:
                 if posicion not in self.posiciones:
                     self.posiciones.append(posicion)
                     return posicion
+    
+    def _busqueda(self):
+        ventana_secundaria=tb.Toplevel('Búsqueda')
+        ventana_secundaria.geometry("800x400")
+        
+        l=tb.Label(text='Ingrese los parametros de búsqueda',bootstyle='info,inverse',master=ventana_secundaria,font=('Arial',11))
+        l.pack(side=tb.TOP,pady=20)
+        
+        f=tb.Frame(master=ventana_secundaria)
+        f.pack(side=tb.TOP,pady=(0,30))
+        l1=tb.Label(text='Nombre del evento ',font=('Arial',10),bootstyle='info',master=f)
+        l1.pack(side=tb.LEFT)
+        b=tb.Checkbutton(bootstyle="round-toggle",master=f)
+        b.pack(side=tb.LEFT)
+        e=tb.Entry(master=f)
+        e.pack(side=tb.LEFT)
+        
+        f1=tb.Frame(master=ventana_secundaria)
+        f1.pack(side=tb.TOP,pady=(0,30))
+        l2=tb.Label(text='Nombre del evento ',font=('Arial',10),bootstyle='info',master=f1)
+        l2.pack(side=tb.LEFT)
+        b1=tb.Checkbutton(bootstyle="round-toggle",master=f1)
+        b1.pack(side=tb.LEFT)
+        e1=tb.Entry(master=f1)
+        e1.pack(side=tb.LEFT)
+        
+        f2=tb.Frame(master=ventana_secundaria)
+        f2.pack(side=tb.TOP,pady=(0,30))
+        l3=tb.Label(text='Nombre del evento ',font=('Arial',10),bootstyle='info',master=f2)
+        l3.pack(side=tb.LEFT)
+        b2=tb.Checkbutton(bootstyle="round-toggle",master=f2)
+        b2.pack(side=tb.LEFT)
+        e2=tb.Entry(master=f2)
+        e2.pack(side=tb.LEFT)
+        
+        ventana_secundaria.mainloop()
 
     def crear_contenido(self):
         """Crea todo el contenido de la interfaz
@@ -113,7 +149,7 @@ class Aplicacion:
         self.b1 = tb.Button(master=self.buttonbar, image=self.imagen, compound=tb.LEFT, text='Nuevo', bootstyle='primary', command=self.nuevo_Evento)
         self.b1.pack(side=tb.LEFT, ipadx=5, ipady=5, padx=(1, 0), pady=1)
         
-        self.b2=tb.Button(master=self.buttonbar,text='Buscar',bootstyle='primary',compound=tb.LEFT,image=self.imagen4)
+        self.b2=tb.Button(master=self.buttonbar,text='Buscar',bootstyle='primary',compound=tb.LEFT,image=self.imagen4,command=self._busqueda)
         self.b2.pack(side=tb.LEFT,ipadx=5,ipady=5,padx=(1, 0),pady=1)
 
         entrada_style = tb.Style()
@@ -124,15 +160,15 @@ class Aplicacion:
         self.contenedor = tb.Labelframe(text='Eventos', padding=10,)
         self.contenedor.pack(side=tb.TOP, fill=tb.BOTH, expand=tb.YES,padx=(20,20),pady=(0,20)) 
         
-        self.l1 = tb.Label(text='Ingrese el nombre de su evento', master=self.entrada, bootstyle='info,inverse')
+        self.l1 = tb.Label(text='Ingrese el nombre de su evento', master=self.entrada, bootstyle='info,inverse',font=('Arial',9))
         self.l1.pack(side=tb.LEFT, ipadx=5, ipady=5, padx=(1,2))
         self.entrada1 = tb.Entry(master=self.entrada, bootstyle="info")  ##Nombre del evento
         self.entrada1.pack(side=tb.LEFT, ipadx=5, ipady=5, padx=(1,6), pady=3)
-        self.l2 = tb.Label(text='Ingrese la fecha de su evento ', master=self.entrada, bootstyle='info,inverse')
+        self.l2 = tb.Label(text='Ingrese la fecha de su evento ', master=self.entrada, bootstyle='info,inverse',font=('Arial',9))
         self.l2.pack(side=tb.LEFT, ipadx=5, ipady=5, pady=5, padx=(0,6))
         self.fecha = tb.DateEntry(master=self.entrada, bootstyle='info')
         self.fecha.pack(padx=(0,20), side=tb.LEFT,)
-        self.l3=tb.Label(text='Seleccione la hora',master=self.entrada,bootstyle='info,inverse') 
+        self.l3=tb.Label(text='Seleccione la hora',master=self.entrada,bootstyle='info,inverse',font=('Arial',9)) 
         self.l3.pack(side=tb.LEFT,padx=(0,6),pady=5,ipadx=5, ipady=5)
         self.hora = tb.Spinbox(master=self.entrada, bootstyle='info', from_=0, to=24)
         self.hora.pack(side=tb.LEFT)
